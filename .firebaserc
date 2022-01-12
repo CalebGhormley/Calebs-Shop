@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "calebs-shop"
+  },
+  "targets": {
+    "calebs-shop": {
+      "hosting": {
+        "calebs-shop": [
+          "calebs-shop"
+        ]
+      }
+    }
   }
 }
