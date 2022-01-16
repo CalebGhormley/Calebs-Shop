@@ -67,10 +67,6 @@ import { MatDialogModule } from '@angular/material/dialog';
           component: ShoppingCartComponent
         },
         {
-          path: 'login', 
-          component: LoginComponent
-        },
-        {
           path: '**', 
           component: NotFoundComponent
         },
