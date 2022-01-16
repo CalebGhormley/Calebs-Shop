@@ -35,4 +35,8 @@ export class AppNavComponent {
       width: '250px',
     });
   }
+
+  isNotMobile(): boolean {
+    return !this.mobileQuery.matches;
+  }
 }

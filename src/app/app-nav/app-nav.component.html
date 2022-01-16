@@ -19,7 +19,7 @@
         </a>
         <button *ngIf="user" mat-button (click)="snav.toggle()">
           <mat-icon>person</mat-icon>
-          {{ user?.displayName }}
+          <mat-label *ngIf="isNotMobile()">{{ user?.displayName }}</mat-label>
         </button>
         <a (click)="logout()" 
            *ngIf="user"
