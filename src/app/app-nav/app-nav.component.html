@@ -17,9 +17,11 @@
            style="color: white;">
           <button mat-button (click)="openLoginDialog()">Login</button>
         </a>
-        <button *ngIf="user" mat-button (click)="snav.toggle()">
+        <button *ngIf="user" 
+                mat-button
+                (click)="snav.toggle()">
           <mat-icon>person</mat-icon>
-          <mat-label *ngIf="isNotMobile()">{{ user?.displayName }}</mat-label>
+          <mat-label *ngIf="!mobileQuery.matches">{{ user?.displayName }}</mat-label>
         </button>
         <a (click)="logout()" 
            *ngIf="user"
