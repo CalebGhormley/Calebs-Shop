@@ -12,19 +12,20 @@
             </button>
           </a>
         <span class="spacer"></span>
+        
         <a
-           *ngIf="!user"
+           *ngIf="!(auth.user$ | async)"
            style="color: white;">
           <button mat-button (click)="openLoginDialog()">Login</button>
         </a>
-        <button *ngIf="user" 
+        <button *ngIf="auth.user$ | async as user" 
                 mat-button
                 (click)="snav.toggle()">
           <mat-icon>person</mat-icon>
           <mat-label *ngIf="!mobileQuery.matches">{{ user?.displayName }}</mat-label>
         </button>
         <a (click)="logout()" 
-           *ngIf="user"
+           *ngIf="auth.user$ | async as user"
            style="color: white;">
           <button mat-button>Logout</button>
         </a>

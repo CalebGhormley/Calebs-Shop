@@ -1,9 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
 import { LoginComponent } from '../account/login/login.component';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-app-nav',
@@ -12,22 +11,15 @@ import { LoginComponent } from '../account/login/login.component';
 })
 export class AppNavComponent {
   public mobileQuery: MediaQueryList;
-  public user!: firebase.User | null;
-
-  _mobileQueryListener: () => void;
+  private _mobileQueryListener: () => void;
 
   constructor(public changeDetectorRef: ChangeDetectorRef,
               public dialog: MatDialog,
               public media: MediaMatcher,
-              private angularFireAuth: AngularFireAuth,) 
+              public auth: AuthService,) 
   {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    angularFireAuth.authState.subscribe(user => this.user = user);
-  }
-
-  logout() {
-    this.angularFireAuth.signOut();
   }
 
   openLoginDialog(): void {
@@ -36,7 +28,7 @@ export class AppNavComponent {
     });
   }
 
-  isNotMobile(): boolean {
-    return !this.mobileQuery.matches;
+  logout() {
+    this.auth.logout();
   }
 }
