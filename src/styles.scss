@@ -21,6 +21,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   h1.app-name {
     margin-left: 8px;
+    margin-right: 8px;
   }
   
   .sidenav-container {
@@ -34,3 +35,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+  

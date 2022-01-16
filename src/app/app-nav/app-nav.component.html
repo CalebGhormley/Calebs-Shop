@@ -1,6 +1,6 @@
 <div class="container" [class.is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="toolbar">
-        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+      <h1 class="app-name">Caleb's Shop</h1>
         <a href="">
             <button mat-icon-button aria-label="Home">
               <mat-icon style="color: white;">home</mat-icon>
@@ -11,18 +11,31 @@
               <mat-icon style="color: white;">shopping_cart</mat-icon>
             </button>
           </a>
-        <h1 class="app-name">Caleb's Shop</h1>
+        <span class="spacer"></span>
+        <a
+           *ngIf="!user"
+           style="color: white;">
+          <button mat-button (click)="openLoginDialog()">Login</button>
+        </a>
+        <button *ngIf="user" mat-button (click)="snav.toggle()">
+          <mat-icon>person</mat-icon>
+          {{ user?.displayName }}
+        </button>
+        <a (click)="logout()" 
+           *ngIf="user"
+           style="color: white;">
+          <button mat-button>Logout</button>
+        </a>
     </mat-toolbar>
 
-    <mat-sidenav-container class="sidenav-container"
+    <mat-sidenav-container  class="sidenav-container"
                             [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+        <mat-sidenav  position="end" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>
             <a mat-list-item href="">My Orders</a>
             <a mat-list-item href="">Manage Orders</a>
             <a mat-list-item href="">Manage Products</a>
-            <a mat-list-item href="">Log Out</a>
         </mat-nav-list>
         </mat-sidenav>
 

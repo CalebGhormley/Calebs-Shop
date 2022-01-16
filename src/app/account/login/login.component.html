@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-title>
+        <h1>Login</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <button
+            mat-button aria-label="Google"
+            (click)="loginWithGoogle()">
+            <mat-icon svgIcon="google-icon"></mat-icon>
+            Login with Google
+        </button>
+        <button
+            mat-button aria-label="Cancel"
+            (click)="onCancel()">
+            Cancel
+        </button>
+    </mat-card-content>
+</mat-card>

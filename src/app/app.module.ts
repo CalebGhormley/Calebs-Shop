@@ -16,12 +16,17 @@ import { environment } from '../environments/environment';
 import { provideDatabase,getDatabase, } from '@angular/fire/database';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
+import { AppNavComponent } from './app-nav/app-nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AccountComponent } from './account/account/account.component';
+import { LoginComponent } from './account/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HomeComponent,
     ShoppingCartComponent,
     NotFoundComponent,
-    SideNavComponent
+    AppNavComponent,
+    AccountComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
+    HttpClientModule,
+    MatDialogModule,
+    AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(
       [
         { 
@@ -55,6 +65,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         {
           path: 'cart', 
           component: ShoppingCartComponent
+        },
+        {
+          path: 'login', 
+          component: LoginComponent
         },
         {
           path: '**', 
