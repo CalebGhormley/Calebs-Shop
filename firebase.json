@@ -5,6 +5,12 @@
   "hosting": [
     {
       "public": "dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
       "target": "calebs-shop",
       "ignore": [
         "firebase.json",
