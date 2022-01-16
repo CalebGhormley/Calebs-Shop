@@ -1,17 +1,18 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../account/login/login.component';
 import { AuthService } from '../service/auth.service';
+import { OnDisconnect } from 'firebase/database';
 
 @Component({
   selector: 'app-app-nav',
   templateUrl: './app-nav.component.html',
   styleUrls: ['./app-nav.component.scss']
 })
-export class AppNavComponent {
+export class AppNavComponent implements OnDestroy {
   public mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
+  private _screenQueryListener: () => void;
 
   constructor(public changeDetectorRef: ChangeDetectorRef,
               public dialog: MatDialog,
@@ -19,7 +20,12 @@ export class AppNavComponent {
               public auth: AuthService,) 
   {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this._screenQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._screenQueryListener);
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this._screenQueryListener);
   }
 
   openLoginDialog(): void {
