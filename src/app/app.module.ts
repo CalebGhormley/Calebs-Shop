@@ -27,6 +27,13 @@ import { LoginComponent } from './account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthService } from './service/auth.service';
+import { AuthGuard } from './service/auth-guard.service';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +44,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppNavComponent,
     AccountComponent,
     LoginComponent,
+    CheckoutComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
+    AdminOrdersComponent,
+    AdminProductsComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +79,31 @@ import { MatDialogModule } from '@angular/material/dialog';
           component: ShoppingCartComponent
         },
         {
+          path: 'checkout', 
+          component: CheckoutComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'order-success', 
+          component: OrderSuccessComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'my/orders', 
+          component: MyOrdersComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'admin/orders', 
+          component: AdminOrdersComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'admin/products', 
+          component: AdminProductsComponent,
+          canActivate: [AuthGuard]
+        },
+        {
           path: '**', 
           component: NotFoundComponent
         },
@@ -76,7 +113,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     provideDatabase(() => getDatabase()),
     provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
