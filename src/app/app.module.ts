@@ -34,6 +34,10 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { UserService } from './service/user.service';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AdminAuthGuard } from './service/admin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -67,6 +71,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
     MatToolbarModule,
     HttpClientModule,
     MatDialogModule,
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(
       [
@@ -96,12 +102,12 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
         {
           path: 'admin/orders', 
           component: AdminOrdersComponent,
-          canActivate: [AuthGuard]
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/products', 
           component: AdminProductsComponent,
-          canActivate: [AuthGuard]
+          canActivate: [AdminAuthGuard]
         },
         {
           path: '**', 
@@ -115,7 +121,9 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
   ],
   providers: [
     AuthService,
+    UserService,
     AuthGuard,
+    AdminAuthGuard,
   ],
   bootstrap: [AppComponent]
 })
