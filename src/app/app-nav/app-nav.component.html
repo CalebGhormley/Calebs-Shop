@@ -13,20 +13,20 @@
           </a>
         <span class="spacer"></span>
         
-        <a *ngIf="!(auth.user$ | async)"
+        <a *ngIf="!(appUser)"
            style="color: white;">
           <button mat-button (click)="openLoginDialog()">Login</button>
         </a>
-        <button *ngIf="auth.user$ | async as user" 
+        <button *ngIf="appUser"
                 mat-button
                 [class.mat-icon-button]="mobileQuery.matches"
                 (click)="snav.toggle()">
           <mat-icon>person</mat-icon>
-          <mat-label *ngIf="!mobileQuery.matches">{{ user?.displayName }}</mat-label>
+          <mat-label *ngIf="!mobileQuery.matches">{{ appUser.name }}</mat-label>
         </button>
         <a href=""
            (click)="logout()" 
-           *ngIf="auth.user$ | async as user"
+           *ngIf="appUser"
            style="color: white;">
           <button mat-button>Logout</button>
         </a>
@@ -38,8 +38,10 @@
                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>
             <a mat-list-item href="my/orders">My Orders</a>
-            <a mat-list-item href="admin/orders">Manage Orders</a>
-            <a mat-list-item href="admin/products">Manage Products</a>
+            <ng-container *ngIf="appUser?.isAdmin">
+              <a mat-list-item href="admin/orders">Manage Orders</a>
+              <a mat-list-item href="admin/products">Manage Products</a>
+            </ng-container>
         </mat-nav-list>
         </mat-sidenav>
 
