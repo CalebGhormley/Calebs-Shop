@@ -38,6 +38,13 @@ import { UserService } from './service/user.service';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AdminAuthGuard } from './service/admin-auth-guard.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './service/category.service';
+import { ProductService } from './service/product.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +60,7 @@ import { AdminAuthGuard } from './service/admin-auth-guard.service';
     MyOrdersComponent,
     AdminOrdersComponent,
     AdminProductsComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +79,10 @@ import { AdminAuthGuard } from './service/admin-auth-guard.service';
     MatToolbarModule,
     HttpClientModule,
     MatDialogModule,
+    MatInputModule,
+    MatTableModule,
+    MatGridListModule,
+    MatFormFieldModule,
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -110,6 +122,11 @@ import { AdminAuthGuard } from './service/admin-auth-guard.service';
           canActivate: [AdminAuthGuard]
         },
         {
+          path: 'admin/products/new', 
+          component: ProductFormComponent,
+          canActivate: [AdminAuthGuard]
+        },
+        {
           path: '**', 
           component: NotFoundComponent
         },
@@ -122,6 +139,8 @@ import { AdminAuthGuard } from './service/admin-auth-guard.service';
   providers: [
     AuthService,
     UserService,
+    CategoryService,
+    ProductService,
     AuthGuard,
     AdminAuthGuard,
   ],

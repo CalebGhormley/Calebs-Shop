@@ -3,7 +3,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../account/login/login.component';
 import { AuthService } from '../service/auth.service';
-import { OnDisconnect } from 'firebase/database';
 import { UserService } from '../service/user.service';
 import { AppUser } from '../models/app-user';
 
