@@ -1,20 +1,20 @@
 {
   "rules": {
-      ".read": false,
-      ".write": false,
-      "users": {
+    ".read": false,
+    ".write": false,
+    "users": {
       "$userId": {
-          ".read": "$userId === auth.uid",
-          ".write": "$userId === auth.uid"
+        ".read": "$userId === auth.uid",
+        ".write": "$userId === auth.uid"
       }
-      },
-      "categories": {
+    },
+    "categories": {
       ".read": true,
-      ".write": "root.child('users').child('auth.uid').child('isAdmin').val() == true"
-      },
-      "products": {
+      ".write": "root.child('users').child(auth.uid).child('isAdmin').val() == true"
+    },
+    "products": {
       ".read": true,
-      ".write": "root.child('users').child('auth.uid').child('isAdmin').val() == true"
-      }
+      ".write": "root.child('users').child(auth.uid).child('isAdmin').val() == true"
+    }
   }
 }

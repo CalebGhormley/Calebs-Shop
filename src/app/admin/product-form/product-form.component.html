@@ -1,68 +1,64 @@
-<div class="row">
-    <div class="reactiveColumn" [class.is-mobile]="mobileQuery.matches">
-        <mat-card style="padding: 20px;">
+<mat-card style="padding: 20px;">
+    <div class="row">
+        <div class="reactiveColumn" [class.is-mobile]="mobileQuery.matches">
             <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            <div mat-card-avatar></div>
+            <mat-card-title>{{ productName }}</mat-card-title>
+            <mat-card-subtitle>{{ productPrice | currency:'USD':"symbol" }}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <!-- <mat-card-content>
-            <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                bred for hunting.
-            </p>
-            </mat-card-content> -->
-        </mat-card>
+            <mat-card-content>
+                <img mat-card-image [src]="productImageUrl">
+            </mat-card-content>
+        </div>
+        <div class="reactiveColumn" [class.is-mobile]="mobileQuery.matches">
+            <form #f="ngForm" (ngSubmit)="save(f.value)" style=" padding: 20px;">
+                <mat-form-field class="full-form-field" appearance="outline">
+                    <mat-label for="name">Name</mat-label>
+                    <input [(ngModel)]="productName" #name="ngModel" required name="name" matInput id="name" type="text" class="form-control">
+                    <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="full-form-field" appearance="outline">
+                    <span matPrefix><mat-icon> attach_money</mat-icon></span>
+                    <mat-label for="price">Price</mat-label>
+                    <input [(ngModel)]="productPrice" #price="ngModel" required min="0" name="price" matInput id="price" type="number" class="form-control">
+                    <mat-error *ngIf="price.errors?.['min']">
+                        Price cannot be negative
+                    </mat-error>
+                    <mat-error *ngIf="price.invalid && (price.dirty || price.touched) && !price.errors?.['min']">
+                        Price is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-form-field" appearance="outline">
+                    <mat-label for="category">Category</mat-label>
+                    <mat-select [(ngModel)]="productCategory" #category="ngModel" required name="category" id="category" type="number" class="form-control">
+                        <mat-option *ngFor="let category of categories$ | async" [value]="category.key">
+                            {{ category.value?.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="category.invalid && (category.dirty || category.touched)">
+                        Category is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-form-field" appearance="outline">
+                    <mat-label for="imageUrl">Image Url</mat-label>
+                    <input [(ngModel)]="productImageUrl" #imageUrl="ngModel" required pattern="[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" 
+                        name="imageUrl" matInput id="imageUrl" type="text" class="form-control">
+                    <mat-error *ngIf="imageUrl.hasError('pattern')">
+                        Image Url must be valid
+                    </mat-error>
+                    <mat-error *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched) && !imageUrl.hasError('pattern')">
+                        Image Url is required
+                    </mat-error>
+                </mat-form-field>
+
+                <button class="form-button" mat-button color="accent">Save</button>
+                <button type="button" *ngIf="id" class="form-button" mat-button color="warn" (click)="delete()">Delete</button>
+            </form>
+        </div>
     </div>
-    <div class="reactiveColumn" [class.is-mobile]="mobileQuery.matches">
-        <form #f="ngForm" (ngSubmit)="save(f.value)" style=" padding: 20px;">
-            <mat-form-field class="full-form-field" appearance="outline">
-                <mat-label for="name">Name</mat-label>
-                <input ngModel [formControl]="nameFormControl" name="name" matInput id="name" type="text" class="form-control">
-                <mat-error *ngIf="nameFormControl.hasError('required')">
-                    Name is required
-                </mat-error>
-            </mat-form-field>
-            
-            <mat-form-field class="full-form-field" appearance="outline">
-                <span matPrefix><mat-icon> attach_money</mat-icon></span>
-                <mat-label for="price">Price</mat-label>
-                <input ngModel [formControl]="priceFormControl" name="price" matInput id="price" type="number" class="form-control">
-                <mat-error *ngIf="priceFormControl.hasError('min')">
-                    Price cannot be negative
-                </mat-error>
-                <mat-error *ngIf="priceFormControl.hasError('required')">
-                    Price is required
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="full-form-field" appearance="outline">
-                <mat-label for="category">Category</mat-label>
-                <mat-select ngModel [formControl]="categoryFormControl" name="category" id="category" type="number" class="form-control">
-                    <mat-option *ngFor="let category of categories$ | async" [value]="category.key">
-                        {{ category.value?.name }}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="categoryFormControl.hasError('required')">
-                    Category is required
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="full-form-field" appearance="outline">
-                <mat-label for="imageUrl">Image Url</mat-label>
-                <input ngModel [formControl]="imageUrlFormControl" name="imageUrl" matInput id="imageUrl" type="text" class="form-control">
-                <mat-error *ngIf="imageUrlFormControl.hasError('pattern')">
-                    Image Url must be valid
-                </mat-error>
-                <mat-error *ngIf="imageUrlFormControl.hasError('required')">
-                    Image Url is required
-                </mat-error>
-            </mat-form-field>
-
-            <button class="form-button" mat-button color="accent">Save</button>
-            <button class="form-button" mat-button color="warn">Delete</button>
-        </form>
-    </div>
-</div>
+</mat-card>
