@@ -40,6 +40,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AdminAuthGuard } from './service/admin-auth-guard.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
@@ -83,6 +84,7 @@ import { ProductService } from './service/product.service';
     MatTableModule,
     MatGridListModule,
     MatFormFieldModule,
+    MatMenuModule,
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
