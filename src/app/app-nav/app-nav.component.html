@@ -25,13 +25,15 @@
         <mat-label>{{ appUser.name }}</mat-label>
       </button>
       <mat-menu #menu="matMenu">
-        <a mat-list-item href="my/orders" style="color: white;">My Orders</a>
+        <a mat-list-item href="my/orders" style="color: white; margin: 5px;">My Orders</a>
         <ng-container *ngIf="appUser?.isAdmin">
-          <a mat-list-item href="admin/orders" style="color: white;">Manage Orders</a>
-          <a mat-list-item href="admin/products" style="color: white;">Manage Products</a>
+          <a mat-list-item href="admin/orders" style="color: white; margin: 5px;">Manage Orders</a>
+          <a mat-list-item href="admin/products" style="color: white; margin: 5px;">Manage Products</a>
         </ng-container>
-        <a href="" (click)="logout()" *ngIf="appUser" style="color: white;">Logout</a>
+        <a href="" (click)="logout()" *ngIf="appUser" style="color: white; margin: 5px;">Logout</a>
       </mat-menu>
   </mat-toolbar>
-  <router-outlet></router-outlet>
+  <body class="mat-app-background">
+    <router-outlet></router-outlet>
+  </body>
 </div>
