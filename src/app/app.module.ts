@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -88,57 +87,6 @@ import { ProductService } from './service/product.service';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
-    RouterModule.forRoot(
-      [
-        { 
-          path: '', 
-          component: HomeComponent
-        },
-        {
-          path: 'cart', 
-          component: ShoppingCartComponent
-        },
-        {
-          path: 'checkout', 
-          component: CheckoutComponent,
-          canActivate: [AuthGuard]
-        },
-        {
-          path: 'order-success', 
-          component: OrderSuccessComponent,
-          canActivate: [AuthGuard]
-        },
-        {
-          path: 'my/orders', 
-          component: MyOrdersComponent,
-          canActivate: [AuthGuard]
-        },
-        {
-          path: 'admin/orders', 
-          component: AdminOrdersComponent,
-          canActivate: [AuthGuard, AdminAuthGuard]
-        },
-        {
-          path: 'admin/products/new', 
-          component: ProductFormComponent,
-          canActivate: [AuthGuard, AdminAuthGuard]
-        },
-        {
-          path: 'admin/products/:id', 
-          component: ProductFormComponent,
-          canActivate: [AuthGuard, AdminAuthGuard]
-        },
-        {
-          path: 'admin/products', 
-          component: AdminProductsComponent,
-          canActivate: [AuthGuard, AdminAuthGuard]
-        },
-        {
-          path: '**', 
-          component: NotFoundComponent
-        },
-      ]
-    ),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideAuth(() => getAuth()),

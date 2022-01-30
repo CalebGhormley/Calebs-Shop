@@ -79,3 +79,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .mat-card {
     background: none;
   }
+
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  

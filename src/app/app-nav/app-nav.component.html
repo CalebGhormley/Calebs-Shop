@@ -2,17 +2,16 @@
     <mat-toolbar color="primary" class="toolbar">
       <a href="" style="color: white;"><h1>Caleb's Shop</h1></a>
         <a href="">
-            <button mat-button mat-icon-button aria-label="Home">
-              <mat-icon style="color: white;">home</mat-icon>
-            </button>
-          </a>
-          <a href="cart">
-            <button mat-button mat-icon-button aria-label="Cart">
-              <mat-icon style="color: white;">shopping_cart</mat-icon>
-            </button>
-          </a>
+          <button mat-button mat-icon-button aria-label="Home">
+            <mat-icon style="color: white;">home</mat-icon>
+          </button>
+        </a>
+        <a href="cart">
+          <button mat-button mat-icon-button aria-label="Cart">
+            <mat-icon style="color: white;">shopping_cart</mat-icon>
+          </button>
+        </a>
         <span class="spacer"></span>
-        
         <a *ngIf="!(appUser)"
            style="color: white;">
           <button mat-button (click)="openLoginDialog()">Login</button>
@@ -25,7 +24,6 @@
           <mat-label *ngIf="!mobileQuery.matches">{{ appUser.name }}</mat-label>
         </button>
     </mat-toolbar>
-
     <mat-sidenav-container  class="sidenav-container"
                             [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav  position="end" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -36,10 +34,9 @@
               <a mat-list-item href="admin/orders">Manage Orders</a>
               <a mat-list-item href="admin/products">Manage Products</a>
             </ng-container>
-            <a mat-list-item href="" (click)="logout()" *ngIf="appUser" style="color: white;">Logout</a>
+            <a mat-list-item href="" (click)="logout()" *ngIf="appUser">Logout</a>
         </mat-nav-list>
         </mat-sidenav>
-        
         <mat-sidenav-content>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
