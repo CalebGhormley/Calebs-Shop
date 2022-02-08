@@ -9,22 +9,13 @@ import { Category } from '../models/category';
 })
 export class CategoryService {
 
-  constructor(private db: AngularFireDatabase) { 
+  constructor(private db: AngularFireDatabase) { }
 
-  }
-
-  private getAngularFireCategories(): AngularFireList<Category> {
-    return this.db.list('/categories', ref => {
+  public getCategories$(): Observable<{ key:string | null, value:Category | null }[]> {
+    let categories: AngularFireList<Category> = this.db.list('/categories', ref => {
       return ref.orderByChild('name');
     });
-  }
-
-  public getCategories$(): Observable<Category[] | null> {
-    return this.getAngularFireCategories().valueChanges();
-  }
-
-  public getCategoriesWithKey$(): Observable<{ key:string | null, value:Category | null }[]> {
-    return this.getAngularFireCategories().snapshotChanges().pipe(
+    return categories.snapshotChanges().pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, value: c.payload.val() }))
       )

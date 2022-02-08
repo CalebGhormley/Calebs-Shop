@@ -7,7 +7,7 @@ import { UserService } from '../service/user.service';
 import { AppUser } from '../models/app-user';
 
 @Component({
-  selector: 'app-app-nav',
+  selector: 'app-nav',
   templateUrl: './app-nav.component.html',
   styleUrls: ['./app-nav.component.scss']
 })

@@ -9,6 +9,7 @@ import { Product } from '../models/product';
   providedIn: 'root'
 })
 export class ProductService {
+  
 
   constructor(private db: AngularFireDatabase) { }
 
@@ -27,18 +28,9 @@ export class ProductService {
     });
   }
 
-  private getAngularFireProduct(productId: string): AngularFireObject<Product> {
-    return this.db.object('/products/'+productId);
-  }
-
-  private getAngularFireProducts(): AngularFireList<Product> {
-    return this.db.list('/products', ref => {
-      return ref.orderByChild('name');
-    });
-  }
-
   public getProduct$(productId: string): Observable<{ key: string | null, value: Product | null }> {
-    return this.getAngularFireProduct(productId).snapshotChanges().pipe(
+    let product: AngularFireObject<Product> = this.db.object('/products/'+productId);
+    return product.snapshotChanges().pipe(
       map(c => 
         ({ key: c.payload.key, value: c.payload.val() })
       )
@@ -46,7 +38,10 @@ export class ProductService {
   }
 
   public getProducts$(): Observable<{ key: string | null, value: Product | null }[]> {
-    return this.getAngularFireProducts().snapshotChanges().pipe(
+    let products: AngularFireList<Product> = this.db.list('/products', ref => {
+      return ref.orderByChild('name');
+    });
+    return products.snapshotChanges().pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, value: c.payload.val() }))
       )

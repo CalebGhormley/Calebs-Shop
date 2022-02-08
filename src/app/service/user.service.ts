@@ -18,11 +18,8 @@ export class UserService {
     });
   }
 
-  getAngularFireUser(uid:string): AngularFireObject<AppUser>{
-    return this.db.object('/users/' + uid);
-  }
-
   getAppUser$(uid:string): Observable<AppUser | null> {
-    return this.getAngularFireUser(uid).valueChanges();
+    let user: AngularFireObject<AppUser> = this.db.object('/users/' + uid);
+    return user.valueChanges();
   }
 }

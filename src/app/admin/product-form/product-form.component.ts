@@ -31,7 +31,7 @@ export class ProductFormComponent {
     this._screenQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._screenQueryListener);
     // Get categories
-    this.categories$ = categoryService.getCategoriesWithKey$();
+    this.categories$ = categoryService.getCategories$();
     //Get id from route for existing products
     this.id = this.route.snapshot.paramMap.get('id')??'';
     if (this.id) this.productService.getProduct$(this.id).pipe(take(1)).subscribe(p => this.product = p);
